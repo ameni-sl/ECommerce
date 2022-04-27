@@ -5,17 +5,9 @@ import axios from "axios";
 import {authActions} from "../store/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {
-    fetchAllOrdersData,
-    fetchCountOrderData,
-    fetchOrderCountStatData,
-    fetchOrdersData,
-    fetchOrderStatData,
-    orderActions
-} from "../store/orders";
-import {fetchMassifsData} from "../store/shop";
+import {fetchMassifsData, fetchSopsData} from "../store/shop";
 import {shopActions} from "../store/shop";
-import {Container} from "react-bootstrap";
+import globalVariables from "../store/state";
 
 const Login = () => {
     const initialValues = { username: "", password: ""};
@@ -26,22 +18,16 @@ const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-
-    useEffect(() => {
-        dispatch(authActions.logout());
-    })
-
-
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormValues({...formValues, [name]:value});
         setFormErrors({});
         setIsAuth(false);
-    }
+    };
 
-     const fetchData = async () => {
+    const fetchData = async () => {
         axios
-            .get(`http://commerce.intersport-rent.local/api/oauth/v2/token?client_id=${auth.client_id}&client_secret=${auth.client_secret}&grant_type=password&username=${formValues.username}&password=${formValues.password}`)
+            .get(globalVariables.baseUrl + `oauth/v2/token?client_id=${auth.client_id}&client_secret=${auth.client_secret}&grant_type=password&username=${formValues.username}&password=${formValues.password}`)
             .then((response) => {
                 setIsAuth(false);
                 dispatch(authActions.setToken(response.data.access_token));
@@ -51,13 +37,8 @@ const Login = () => {
                 history.push('/dashboard');
                 dispatch(authActions.setStorageAuthData());
                 const fetchOrderData = async () => {
-                    await dispatch(fetchCountOrderData(response.data.access_token));
-                    await dispatch(fetchOrdersData(response.data.access_token));
-                    await dispatch(fetchOrderStatData(response.data.access_token));
-                    await dispatch(fetchOrderCountStatData(response.data.access_token));
-                    await dispatch(orderActions.setStorageOrdersData());
-                    dispatch(fetchAllOrdersData(response.data.access_token));
                     await dispatch(fetchMassifsData(response.data.access_token));
+                    await dispatch(fetchSopsData(response.data.access_token));
                     await dispatch(shopActions.setStorageShopData());
                 }
                 fetchOrderData();
@@ -66,13 +47,7 @@ const Login = () => {
                 setIsAuth(true);
             })
 
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setFormErrors(validate(formValues));
-        fetchData();
-    }
+    };
 
     const validate = (values) => {
         const errors = {};
@@ -84,7 +59,17 @@ const Login = () => {
             errors.password = "5 caractères minimum"
         }
         return errors;
-    }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormErrors(validate(formValues));
+        fetchData();
+    };
+
+    useEffect(() => {
+        dispatch(authActions.logout());
+    });
 
     return (
         <div className="body">

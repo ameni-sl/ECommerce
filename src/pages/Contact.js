@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import sidebarImage from "../assets/img/img.jpg";
 import Sidebar from "../components/Sidebar";
 import routes from "../routes";
 import Navbar from "../components/NavBar";
-import FixedPlugin from "../components/FixedPlugin";
-import "./Contact.css";
+import "../assets/css/Contact.css";
 
 const Contact = () => {
-    const [image, setImage] = React.useState(sidebarImage);
-    const [color, setColor] = React.useState("black");
-    const [hasImage, setHasImage] = React.useState(true);
-    const mainPanel = React.useRef(null);
+    const [image, setImage] = useState(sidebarImage);
+    const [color, setColor] = useState("black");
+    const [hasImage, setHasImage] = useState(true);
+    const mainPanel = useRef(null);
+
     return (
         <>
             <div className="wrapper">
@@ -53,8 +53,8 @@ const Contact = () => {
                                         <div className="input-box message-box">
                                             <textarea></textarea>
                                         </div>
-                                        <div className="button">
-                                            <input type="button" value="Envoyer"/>
+                                        <div>
+                                            <button className="contact_button">Envoyer</button>
                                         </div>
                                     </form>
                                 </div>
@@ -63,14 +63,6 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            <FixedPlugin
-                hasImage={hasImage}
-                setHasImage={() => setHasImage(!hasImage)}
-                color={color}
-                setColor={(color) => setColor(color)}
-                image={image}
-                setImage={(image) => setImage(image)}
-            />
         </>
     );
 };

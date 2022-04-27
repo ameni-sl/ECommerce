@@ -1,16 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+const initialState = {
+    massif: null,
+    station: null,
+    shop: null,
+    dateA: null,
+    dateD: null,
+};
+
 const initialCatalogState = {
-    formValues: {
-        massif: null,
-        station: null,
-        shop: null,
-        dateA: "",
-        dateD: "",
-    },
-    catalogList: [],
-    cat : [],
-    error: {},
+    formValues: initialState,
 };
 
 const catalogSlice = createSlice({
@@ -20,64 +19,39 @@ const catalogSlice = createSlice({
         addFormValues(state, action) {
             state.formValues = action.payload;
         },
-        addCatalog(state, action) {
-
-            state.catalogList = action.payload;
-            state.error = {};
+        addProduct(state, action) {
+            state.product = action.payload;
         },
         addMassif(state, action) {
             state.formValues.massif = action.payload;
+            state.formValues.station = null;
+            state.formValues.shop = null;
+            state.formValues.dateA = null;
+            state.formValues.dateD = null;
         },
         addStation(state, action) {
             state.formValues.station = action.payload;
+            state.formValues.shop = null;
+            state.formValues.dateA = null;
+            state.formValues.dateD = null;
         },
-        addCat(state){
-            const catList = [];
-            catList.push(state.formValues);
-            catList.push(state.catalogList);
-            state.cat.push(catList);
+        addShop(state, action) {
+            state.formValues.shop = action.payload;
         },
-        addError(state, action) {
-            state.error = action.payload;
-            state.catalogList = [];
+        clearCatalog(state) {
+            state.formValues = initialState;
         },
         setStorageCatalogData(state) {
             window.localStorage.setItem('catalogInfo', JSON.stringify(state));
         },
         getStorageCatalogData(state) {
             if ('catalogInfo' in window.localStorage &&  window.localStorage.getItem('catalogInfo').length !== 0) {
-                state.catalogList = JSON.parse(window.localStorage.getItem('catalogInfo')).catalogList;
-                state.error = JSON.parse(window.localStorage.getItem('catalogInfo')).error;
                 state.formValues = JSON.parse(window.localStorage.getItem('catalogInfo')).formValues;
+                state.product = JSON.parse(window.localStorage.getItem('catalogInfo')).product;
             }
         }
     }
 });
-
-export const fetchCatalogData = (token, formValues) => {
-    return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                `http://commerce.intersport-rent.local/api/catalog/${formValues.shop}?startDate=${formValues.dateA}&endDate=${formValues.dateD}`, {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                dispatch(catalogActions.addError(await response.json()));
-            }else{
-                const catalogData = await response.json();
-                dispatch(catalogActions.addCatalog(catalogData));
-            }
-        };
-        await fetchData();
-        dispatch(catalogActions.addCat());
-    };
-};
 
 export const catalogActions = catalogSlice.actions;
 export default catalogSlice.reducer;

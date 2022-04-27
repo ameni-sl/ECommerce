@@ -1,7 +1,6 @@
-import Catalog from "./pages/Catalog";
-import Orders from "./pages/Orders";
+import Catalog from "./pages/catalog/Catalog";
+import Orders from "./pages/orders/Orders";
 import Promotions from "./pages/Promotions";
-import Notifications from "./pages/Notifications";
 import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
 
@@ -29,12 +28,6 @@ const dashboardRoutes = [
         name: "Promotions",
         icon: "bx bxs-cart-download",
         component: Promotions,
-    },
-    {
-        path: "/notifications",
-        name: "Notifications",
-        icon: "bx bxs-notification",
-        component: Notifications,
     },
     {
         path: "/contact",

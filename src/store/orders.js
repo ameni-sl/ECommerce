@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {fetchData} from "../response";
 
 const initialOrderState = {
 
@@ -11,7 +12,7 @@ const initialOrderState = {
     reservations: [],
     ordersStat: [[], [], []],
     ordersCount: [],
-    orders: []
+    order: {},
 };
 
 const orderSlice = createSlice({
@@ -22,6 +23,7 @@ const orderSlice = createSlice({
             state.count = action.payload;
         },
         addOrdersCountStat(state, action) {
+            state.ordersCount = [];
             for(let i=0; i<action.payload.length; i++){
                 state.ordersCount.unshift(parseInt(action.payload[i].Count));
             }
@@ -29,10 +31,14 @@ const orderSlice = createSlice({
         addOrders(state, action) {
             state.reservations = action.payload;
         },
+        addOrder(state, action) {
+            state.order = action.payload;
+        },
         addAllOrders(state, action) {
             state.orders = action.payload;
         },
         addOrdersStat(state, action) {
+            state.ordersStat = [[], [], []];
             const dict1 = { '01': '0','02': '0','03': '0','04': '0','05': '0','06': '0','07': '0','08': '0','09': '0','10': '0','11': '0','12': '0'};
             const dict2 = { '01': '0','02': '0','03': '0','04': '0','05': '0','06': '0','07': '0','08': '0','09': '0','10': '0','11': '0','12': '0'};
             const dict3 = { '01': '0','02': '0','03': '0','04': '0','05': '0','06': '0','07': '0','08': '0','09': '0','10': '0','11': '0','12': '0'};
@@ -55,184 +61,55 @@ const orderSlice = createSlice({
             for(let key in dict3){
                 state.ordersStat[2].push(parseInt(dict3[key]));
             }
-
-        },
-        setStorageOrdersData(state) {
-            window.localStorage.setItem('ordersInfo', JSON.stringify(state));
-        },
-        getStorageOrdersData(state) {
-            if ('ordersInfo' in window.localStorage &&  window.localStorage.getItem('ordersInfo').length !== 0) {
-                state.count = JSON.parse(window.localStorage.getItem('ordersInfo')).count;
-                state.reservations = JSON.parse(window.localStorage.getItem('ordersInfo')).reservations;
-                state.ordersStat = JSON.parse(window.localStorage.getItem('ordersInfo')).ordersStat;
-                state.ordersCount = JSON.parse(window.localStorage.getItem('ordersInfo')).ordersCount;
-                state.orders = JSON.parse(window.localStorage.getItem('ordersInfo')).orders;
-            }
         }
     }
 });
 
 export const fetchCountOrderData = (token) => {
     return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'http://commerce.intersport-rent.local/api/bookingsCount', {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                throw new Error('Could not fetch orders count data!');
-            }
-
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const orderCountData = await fetchData();
-            dispatch(
-                orderActions.addOrderCount(orderCountData)
-            );
-        } catch (error) {
-            console.log('error');
+        const response = await fetchData(token, 'bookingsCount', 'GET');
+        if (!response.ok) {
+            throw new Error('Could not fetch data!');
         }
-    };
-};
-
-export const fetchOrdersData = (token) => {
-    return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'http://commerce.intersport-rent.local/api/bookings?limit=10', {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                throw new Error('Could not fetch orders data!');
-            }
-
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const ordersData = await fetchData();
-            dispatch(
-                orderActions.addOrders(ordersData)
-            );
-        } catch (error) {
-            console.log('error');
-        }
+        const orderCountData = await response.json();
+        dispatch(
+            orderActions.addOrderCount(orderCountData)
+        );
     };
 };
 
 export const fetchOrderStatData = (token) => {
     return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'http://commerce.intersport-rent.local/api/bookingsStat', {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                throw new Error('Could not fetch ordersStat data!');
-            }
-
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const ordersStatData = await fetchData();
-            dispatch(
-                orderActions.addOrdersStat(ordersStatData)
-            );
-        } catch (error) {
-            console.log('error');
+        const response = await fetchData(token, 'bookingsStat', 'GET');
+        if (!response.ok) {
+            throw new Error('Could not fetch data!');
         }
+        const ordersStatData = await response.json();
+        await dispatch(orderActions.addOrdersStat(ordersStatData));
     };
 };
 export const fetchOrderCountStatData = (token) => {
     return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'http://commerce.intersport-rent.local/api/bookingsCountStat', {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                throw new Error('Could not fetch ordersCountStat data!');
-            }
-
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const ordersCountStatData = await fetchData();
-            dispatch(
-                orderActions.addOrdersCountStat(ordersCountStatData)
-            );
-        } catch (error) {
-            console.log('error');
+        const response = await fetchData(token, 'bookingsCountStat', 'GET');
+        if (!response.ok) {
+            throw new Error('Could not fetch data!');
         }
+        const ordersCountStatData = await response.json();
+        dispatch(orderActions.addOrdersCountStat(ordersCountStatData));
     };
 };
 
-export const fetchAllOrdersData = (token) => {
+
+export const fetchOrdersData = (token) => {
     return async (dispatch) => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'http://commerce.intersport-rent.local/api/bookings', {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                        "Mode": 'no-cors'
-                    }
-                });
-
-            if (!response.ok) {
-                throw new Error('Could not fetch orders data!');
-            }
-
-            const data = await response.json();
-
-            return data;
-        };
-
-        try {
-            const ordersData = await fetchData();
-            dispatch(
-                orderActions.addAllOrders(ordersData)
-            );
-        } catch (error) {
-            console.log('error');
+        const response = await fetchData(token, 'bookings?limit=10', 'GET');
+        if (!response.ok) {
+            throw new Error('Could not fetch data!');
         }
+        const ordersData = await response.json();
+        dispatch(
+            orderActions.addOrders(ordersData)
+        );
     };
 };
 

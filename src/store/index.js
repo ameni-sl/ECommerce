@@ -8,7 +8,7 @@ import notificationReducer from './notif';
 import shopReducer from './shop';
 
 const store = configureStore({
-    reducer: { auth: authReducer, orders: ordersReducer, catalog: catalogReducer, cart: cartReducer, notification: notificationReducer, shop: shopReducer },
+    reducer: { auth: authReducer, orders: ordersReducer, catalog: catalogReducer, cart: cartReducer, notification: notificationReducer, shop: shopReducer},
 });
 
 export default store;

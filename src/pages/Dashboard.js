@@ -1,23 +1,33 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ChartistGraph from "react-chartist";
 import { Card, Table, Container,  Row, Col } from "react-bootstrap";
 import sidebarImage from "../assets/img/img.jpg";
 import Sidebar from "../components/Sidebar";
 import NavBar from "../components/NavBar";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import routes from "../routes";
-
+import {fetchCountOrderData, fetchOrderCountStatData, fetchOrdersData, fetchOrderStatData} from "../store/orders";
 
 const Dashboard = () => {
-    const [image, setImage] = React.useState(sidebarImage);
-    const [color, setColor] = React.useState("black");
-    const [hasImage, setHasImage] = React.useState(true);
-    const mainPanel = React.useRef(null);
+    const [image, setImage] = useState(sidebarImage);
+    const [color, setColor] = useState("black");
+    const [hasImage, setHasImage] = useState(true);
+    const mainPanel = useRef(null);
     const orders = useSelector((state) => state.orders);
+    const auth = useSelector((state) => state.auth);
     let year = new Date().getFullYear();
     let max = [Math.max(...orders.ordersStat[0]),Math.max(...orders.ordersStat[1]),Math.max(...orders.ordersStat[2])];
     let high = useState(Math.max(...max));
     const labels = ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Déc"];
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        dispatch(fetchOrderStatData(auth.access_token));
+        dispatch(fetchOrderCountStatData(auth.access_token));
+        dispatch(fetchCountOrderData(auth.access_token));
+        dispatch(fetchOrdersData(auth.access_token));
+    },[]);
 
     return (
         <>
@@ -103,7 +113,6 @@ const Dashboard = () => {
                                                     </Col>
                                                 </Row>
                                             </Card.Body>
-
                                         </Card>
                                     </Col>
                                 </Row>

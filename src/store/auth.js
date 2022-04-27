@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
+import globalVariables from "./state";
 
 const initialAuthState = {
-    client_id: "5gqd2onz1eccwgwssokg4wcokw88wogs8c808cwkw400oossws",
-    client_secret: "4v769fm1cv40c4sgwko008s8o4sgs4s00sww8kk8w4sc84cokk",
+    client_id: globalVariables.clientId,
+    client_secret: globalVariables.clientSecret,
     username: "",
     password: "",
     access_token: "",
@@ -17,13 +18,8 @@ const authSlice = createSlice({
         login(state) {
             state.isLogged = true;
         },
-        logout(state) {
-            window.localStorage.removeItem('authInfo');
-            window.localStorage.removeItem('cartInfo');
-            window.localStorage.removeItem('catalogInfo');
-            window.localStorage.removeItem('notificationInfo');
-            window.localStorage.removeItem('ordersInfo');
-            window.localStorage.removeItem('shopInfo');
+        logout() {
+            window.localStorage.clear();
         },
         setToken(state, action) {
             state.access_token = action.payload;

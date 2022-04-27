@@ -1,11 +1,9 @@
 import React from 'react';
-import {NavLink, useHistory, useLocation} from "react-router-dom";
-import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
+import {useHistory, useLocation} from "react-router-dom";
+import {Navbar, Container, Nav, Dropdown, Button} from "react-bootstrap";
 import routes from "../routes";
 import {useDispatch, useSelector} from "react-redux";
-import {authActions} from "../store/auth";
-import {orderActions} from "../store/orders";
-import {shopActions} from "../store/shop";
+import {notificationActions} from "../store/notif";
 
 
 const NavBar = () => {
@@ -14,7 +12,6 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const notification = useSelector((state) => state.notification);
-
 
     const mobileSidebarToggle = (e) => {
         e.preventDefault();
@@ -28,17 +25,6 @@ const NavBar = () => {
         document.body.appendChild(node);
     };
 
-    const logOut = (e) => {
-        dispatch(authActions.logout());
-        dispatch(authActions.getStorageAuthData());
-        // dispatch(cartActions.getStorageCartData());
-        // dispatch(catalogActions.getStorageCatalogData());
-        // dispatch(notificationActions.getStorageNotificationData());
-        dispatch(orderActions.getStorageOrdersData());
-        dispatch(shopActions.getStorageShopData());
-        history.push('/');
-    }
-
     const getBrandText = () => {
         for (let i = 0; i < routes.length; i++) {
             if (location.pathname.indexOf(routes[i].path) !== -1) {
@@ -49,7 +35,7 @@ const NavBar = () => {
     };
 
     return (
-        <Navbar className="navB" bg="light" expand="lg">
+        <Navbar  bg="light" expand="lg">
             <Container fluid>
                 <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
                     <Button
@@ -74,6 +60,47 @@ const NavBar = () => {
                 </Navbar.Toggle>
                 <Navbar.Collapse className="navCol" id="basic-navbar-nav">
                     <Nav className="ml-auto" navbar>
+                        <Dropdown as={Nav.Item}>
+                            <Dropdown.Toggle
+                                as={Nav.Link}
+                                data-toggle="dropdown"
+                                id="dropdown-67443507"
+                                variant="default"
+                                className="m-0"
+                            >
+                                <i className='bx bxs-bell fa-2xl'></i>
+                                <span className="notification">{notification.notificationList.length}</span>
+                                <span className="d-lg-none ml-1">Notification</span>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {
+                                    notification.notificationList?.map((notification, index) => {
+                                        return (
+                                            <Dropdown.Item
+                                                key={index}
+                                                href="#pablo"
+                                                onClick={(e) => e.preventDefault()}
+                                                style={{color:notification.color}}
+                                            >
+                                                {notification.message}
+                                            </Dropdown.Item>
+                                        )
+                                    })
+                                }
+                                {
+                                    notification.notificationList?.length !== 0? <Dropdown.Item
+                                        href="#pablo"
+                                        onClick={(e) => e.preventDefault()}
+                                    >
+                                        <span style={{color:"blue", width:"20%" , marginLeft:"40%", backgroundColor:"transparent",  borderRadius:"5px"}} onClick={()=>{dispatch(notificationActions.deleteAll())}} >Vider</span>
+                                    </Dropdown.Item> : <Dropdown.Item
+                                        href="#pablo"
+                                        onClick={(e) => e.preventDefault()}
+                                    >
+                                    </Dropdown.Item>
+                                }
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Nav.Item>
                             <Nav.Link
                                 className="m-0"
@@ -84,27 +111,12 @@ const NavBar = () => {
                                 <span className="notification">{cart.cart.length}</span>
                             </Nav.Link>
                         </Nav.Item>
-                    </Nav>
-                    <Nav className="ml-auto" navbar>
                         <Nav.Item>
                             <Nav.Link
                                 className="m-0"
-                                href="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                            >
-                                <i onClick={() => history.push('/notifications')} className='bx bxs-bell fa-2xl'></i>
-                                <span className="notification">{notification.notificationList.length}</span>
-                            </Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                    <Nav className="ml-auto" navbar>
-                        <Nav.Item>
-                            <Nav.Link
-                                className="m-0"
-                                href="#pablo"
+                                href="/"
                             >
                                 <i className='bx bx-log-out-circle fa-2xl'></i>
-                                {/*<NavLink to={'/'}> <i className='bx bx-log-out-circle fa-2xl'></i> </NavLink>*/}
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>

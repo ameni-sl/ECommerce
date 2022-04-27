@@ -1,4 +1,82 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css");
+//@import url("https://cdn.syncfusion.com/ej2/material.css");
+//
+//@import 'rsuite/dist/styles/rsuite-default.css';
+//
+//.rs-picker-default .rs-picker-toggle.rs-btn {
+//  padding-top: 7px;
+//  padding-bottom: 7px;
+//  width: 282px;
+//}
+//
+///* picked date align */
+//.rs-picker-default .rs-picker-toggle {
+//  position: relative;
+//  z-index: 5;
+//  padding-right: 67px;
+//  display: inline-block;
+//  outline: none;
+//  cursor: pointer;
+//  color: #575757;
+//  border: 1px solid #e5e5ea;
+//  padding-left: 44px;
+//}
+///* calander align */
+//.rs-picker-toggle-caret {
+//  display: inline-block;
+//  margin-right: 240px;
+//  position: absolute;
+//  top: 8px;
+//  right: 12px;
+//  font-weight: normal;
+//  color: #8e8e93;
+//}
+//
+///* ok button style */
+//.rs-picker-toolbar-right-btn-ok {
+//  text-align: center;
+//  cursor: pointer;
+//  outline: 0 ;
+//  border: none;
+//  padding: 8px 12px;
+//  font-size: 14px;
+//  border-radius: 30px;
+//  color: #fff;
+//  background-color: #3498ff;
+//  width: 100px;
+//}
+//
+///* range style */
+//.rs-picker-menu .rs-calendar .rs-calendar-table-cell-content {
+//  padding-left: 0;
+//  padding-right: 0;
+//  border-radius: 21px;
+//  display: inline-block;
+//}
+
+.box-calendar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-calendar .close {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+
+
+
+
 
 .body {
   font-family: sans-serif;
@@ -96,72 +174,72 @@
   border-radius: 6px;
   //padding: 20px 60px 50px 0px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    form{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 250px;
-      .form_content {
-        height: 100%;
-        width: 100%;
+  form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    .form_content {
+      height: 100%;
+      width: 100%;
+      background: white;
+      border-radius: 10px;
+      padding-left: 10px;
+      select {
+        width: 15%;
+        font-size: 18px;
+        border: transparent;
+        outline: none;
+        border-bottom: 1px solid #2980b9;
+        height: 50px;
+        color: black;
         background: white;
-        border-radius: 10px;
-        padding-left: 10px;
-        select {
-          width: 15%;
-          font-size: 18px;
-          border: transparent;
-          outline: none;
-          border-bottom: 1px solid #2980b9;
-          height: 50px;
-          color: black;
-          background: white;
-          margin-left: 20px;
-        }
-        input[type="date"] {
-          margin-top: 40px;
-          margin-bottom: 40px;
-          margin-left: 20px;
-          width: 20%;
-          height: 50px;
-          color: black;
-          cursor: pointer;
-          line-height: 45px;
-          border: transparent;
-          border-bottom: 1px solid #2980b9;
-          //border-radius: 5px;
-          background: white;
-          font-size: 20px;
-        }
+        margin-left: 20px;
       }
-
-      button[type="submit"] {
+      input[type="date"] {
         margin-top: 40px;
         margin-bottom: 40px;
-        margin-left: 40%;
+        margin-left: 20px;
         width: 20%;
-        height: 60px;
-        color: #2980b9;
+        height: 50px;
+        color: black;
         cursor: pointer;
         line-height: 45px;
-        background-color: lightblue;
-        border-radius: 5px;
         border: transparent;
         border-bottom: 1px solid #2980b9;
+        //border-radius: 5px;
+        background: white;
         font-size: 20px;
       }
-
-      button[type="submit"]:hover{
-        box-shadow: inset 368px 0 0 0 #2980b9;
-        color: #FFFFFF;
-      }
     }
+
+    button[type="submit"] {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      margin-left: 40%;
+      width: 20%;
+      height: 60px;
+      color: #2980b9;
+      cursor: pointer;
+      line-height: 45px;
+      background-color: lightblue;
+      border-radius: 5px;
+      border: transparent;
+      border-bottom: 1px solid #2980b9;
+      font-size: 20px;
+    }
+
+    button[type="submit"]:hover{
+      box-shadow: inset 368px 0 0 0 #2980b9;
+      color: #FFFFFF;
+    }
+  }
 }
 
 
 .card1{
-   background-color: lightblue;
-   height: 467px;
+  background-color: lightblue;
+  height: 467px;
 }
 
 .card2{
@@ -174,7 +252,7 @@
 
 ////////////////////////////
 .navB{
-  width: 98%;
+  margin-right: 20%;
 }
 
 .container1{
@@ -204,12 +282,9 @@
 .btn1 {
   background-color: #2980b9;
   color: #FFFFFF;
-  width: 200px;
-  height: 45px;
   cursor: pointer;
   border: transparent;
   border-radius: 30px;
-  font-size: 18px;
   text-align: center;
 }
 
@@ -224,7 +299,8 @@
 
 .span_prod{
   color: red;
-  padding-top: 100%;
+  padding-bottom: 10px;
+  font-size: 1.2em;
 }
 
 .span_prod1{
@@ -319,6 +395,7 @@ input[type="number"] {
   margin-top: 40px;
 }
 
+
 #close {
   overflow: hidden;
   position: relative;
@@ -331,7 +408,7 @@ input[type="number"] {
   font: inherit;
   text-indent: 100%;
   cursor: pointer;
-  margin-left: 80%;
+  margin-left: 95%;
 
   &:focus {
     outline: solid 0 transparent;
@@ -395,28 +472,28 @@ input[type="number"] {
 }
 
 .prod_service {
-  margin-left: 50px;
   .span {
     color: gray;
     font-size: 20px;
+    margin-left: 12%;
   }
   .service {
     border: 1px solid gray;
     border-radius: 10px;
-    height: 60px;
-    margin-bottom: 10px;
-    width: 100%;
-    p{
-      margin-top: 15px;
-    }
-    input{
-      margin-top: 22px;
-    }
-    i {
-      margin-top: 18px;
-      font-size: 1.5em;
-      color: gray;
-    }
+    margin-top: 25px;
+    margin-left: 10%;
+    width: 80%;
+    //p{
+    //  margin-top: 15px;
+    //}
+    //input{
+    //  margin-top: 22px;
+    //}
+    //i {
+    //  margin-top: 18px;
+    //  font-size: 1.5em;
+    //  color: gray;
+    //}
   }
 }
 
@@ -427,36 +504,49 @@ input[type="number"] {
 }
 
 .select {
-  width: 80px;
-  height: 30px;
-  margin-left: 35%;
-  border: 1px solid gray;
+  //border: transparent;
+  //border-bottom: 1px solid blue;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+}
+
+.selectDate {
+  border: 1px solid lightblue;
+  border-radius: 10px;
+  font-size: 0.8em;
 }
 
 .total-price {
   background-color: lightgray;
-  margin-top: 30px;
-  width: 100%;
+  margin-top: 23px;
+  margin-left: -50%;
   height: 40px;
   font-size: 20px;
   .span_prod{
     color: dimgray;
-    margin-left: 50%;
-    margin-top: 100px;
   }
 }
 
 .total-service {
   background-color: lightgray;
-  margin-top: 119px;
-  margin-left: 50px;
-  width: 90%;
   height: 40px;
-  font-size: 20px;
+  font-size: 1em;
   .span_prod{
     color: dimgray;
-    margin-left: 35%;
-    margin-top: 100px;
+    //margin-top: 100px;
+  }
+}
+
+.total-ser {
+  background-color: lightgray;
+  margin-bottom: 20px;
+  margin-left: 12%;
+  width: 78%;
+  height: 40px;
+  font-size: 1em;
+  .span_prod{
+    color: dimgray;
+    //margin-top: 100px;
   }
 }
 
@@ -465,12 +555,12 @@ input[type="number"] {
   border: 1px solid lightgray;
   border-radius: 10px;
   width: 69.5%;
-  height: 180px;
+  height: 250px;
   margin-top: 100px;
 }
 
 .total {
-  margin-top: 10px;
+  margin-top: 30px;
   margin-left: 50px;
   width: 90%;
   height: 40px;
@@ -486,10 +576,14 @@ input[type="number"] {
     background-color: #2980b9;
     color: #FFFFFF;
     width: 100%;
-    margin-top: 25px;
+    margin-top: 35px;
     border-radius: 30px;
     font-size: 20px;
   }
+}
+
+.tot {
+  margin-top: 20px;
 }
 
 .center-stepper {
@@ -558,6 +652,11 @@ input[type="number"] {
   }
 }
 
+.title_cart {
+  font-size: 0.5em;
+  color: gray;
+}
+
 .order_total {
   margin-top: 20px;
   margin-left: 85%;
@@ -571,27 +670,26 @@ input[type="number"] {
 }
 
 .btn_Next {
-  width: 90%;
   background-color: blue;
   color: #FFFFFF;
   border-radius: 30px;
   font-size: 20px;
+  margin-left: 10%;
 }
 
 .btn_Prev {
-  width: 90%;
   background-color: rebeccapurple;
   color: #FFFFFF;
   border-radius: 30px;
   font-size: 20px;
-  margin-left: 65%;
+  margin-left: 55%;
 }
 
 .span {
   color: gray;
   font-size: 25px;
   margin-left: 10%;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .span_code {
@@ -613,7 +711,7 @@ input[type="number"] {
 .pro_cart1 {
   border: 1px solid lightgray;
   width: 80%;
-  height: 400px;
+  height: 450px;
   margin-left: 10%;
   margin-bottom: 20px;
   padding-top: 20px;
@@ -634,25 +732,19 @@ input[type="number"] {
 .pro_cart3 {
   border: 1px solid lightgray;
   width: 100%;
-  height: 60px;
-  margin-bottom: 20px;
-  margin-top: 100px;
+  height:60px;
+  margin-top: 10%;
 }
 
 .pro_add {
-  margin-bottom: 20px;
-  margin-top: 100px;
-  margin-left: 20px;
-  padding-left: 50px;
-  width: 15%;
-  height: 50px;
   color: #2980b9;
   cursor: pointer;
   line-height: 45px;
   border-radius: 5px;
-  border: transparent;
-  border-bottom: 1px solid #2980b9;
-  font-size: 25px;
+  border: 1px solid #2980b9;
+  background-color: lightblue;
+  margin-top: 5%;
+  width: 25%;
 }
 
 //button[type="submit"] {
@@ -670,31 +762,201 @@ input[type="number"] {
 //  font-size: 20px;
 //}
 
+.cart{
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: 1px solid gray;
+
+}
+
+.cart1{
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: 1px solid gray;
+
+}
+
 .button{
-    margin-left: 35%;
-    width: 25%;
-    height: 50px;
-    color: #2980b9;
-    cursor: pointer;
-    line-height: 45px;
-    background-color: lightblue;
-    border-radius: 5px;
-    border: transparent;
-    border-bottom: 1px solid #2980b9;
-    font-size: 1.1em;
+  margin-left: 35%;
+  width: 25%;
+  height: 50px;
+  color: #2980b9;
+  cursor: pointer;
+  line-height: 45px;
+  background-color: lightblue;
+  border-radius: 5px;
+  border: transparent;
+  border-bottom: 1px solid #2980b9;
+  font-size: 1.1em;
+}
+
+.contact_button{
+  margin-left: 35%;
+  width: 25%;
+  height: 50px;
+  color: #2980b9;
+  cursor: pointer;
+  line-height: 45px;
+  background-color: lightblue;
+  border-radius: 5px;
+  border: 1px solid #2980b9;
+  font-size: 1.1em;
 }
 
 .icon_delete{
-  font-size: 1.4em;
-  margin-left: 30%;
+  margin-left: 10%;
   margin-top: 10px;
-  color: red;
+  background-color: indianred;
+  border: 1px solid darkred;
+  border-radius: 10px;
+  color: white;
 }
 
 .icon_edit {
-  font-size: 1.4em;
   margin-top: 10px;
-  color: rebeccapurple;
-  margin-left: -10%;
+  background-color: lightslategray;
+  border: 1px solid gray;
+  border-radius: 10px;
+  color: white;
 }
 
+.span_prod1 {
+  color: red;
+  font-size: 1.2em;
+}
+
+.prod {
+  font-size: 2em;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.prodQ {
+  font-size: 2em;
+  margin-LEFT: 10%;
+}
+
+.error {
+  margin-top: 5%;
+  margin-left: 30%;
+  margin-right: 38%;
+  font-size: 1.5em;
+  color: red;
+  border: transparent;
+  border-bottom: 1px solid #2980b9;
+}
+
+.close {
+  border: transparent;
+  background-color: transparent;
+  color: gray;
+  margin-top: 7%;
+}
+
+.BTN {
+  margin-top: 30%;
+  border: transparent;
+  border-bottom: 1px solid #2980b9;
+}
+
+.BTN:hover {
+  box-shadow: inset 368px 0 0 0 lightblue;
+}
+
+.btn_card{
+  width: 100%;
+  border: 1px solid gray;
+  background-color: lightgray;
+  border-radius: 20px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+
+.butons {
+  text-align: right;
+  button {
+    border: 1px solid gray;
+    color: gray;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+}
+
+
+.wrapp{
+  width: 100%;
+  margin-bottom: 10%;
+}
+.wrapp .input-data{
+  height: 40px;
+  width: 100%;
+  position: relative;
+}
+.wrapp .input-data input{
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid silver;
+}
+.input-data input:focus ~ label,
+.input-data input:valid ~ label{
+  transform: translateY(-20px);
+  font-size: 15px;
+  color: #4158d0;
+}
+.wrapper .input-data label{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  color: grey;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.input-data .underline{
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+}
+.input-data .underline:before{
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: #4158d0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.input-data input:focus ~ .underline:before,
+.input-data input:valid ~ .underline:before{
+  transform: scaleX(1);
+}
+
+.recap {
+  font-size: 0.8em;
+  color: rebeccapurple;
+}
+
+.selct {
+  margin-top: -4%;
+  margin-bottom: 10%;
+  label{
+    font-size: 15px;
+    color: #4158d0;
+  }
+  select{
+    border: transparent;
+    border-bottom: 2px solid #4158d0;
+    width: 100%;
+    margin-top: 7px;
+  }
+}
